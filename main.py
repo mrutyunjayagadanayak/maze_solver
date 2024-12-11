@@ -12,7 +12,7 @@ def main():
 
     c1.draw_move(c2,True) """
 
-    maze = Maze(0,0,10,12,10,10,win)
+    maze = Maze(100,100,5,5,10,10,win)
 
     win.wait_for_close()
 
