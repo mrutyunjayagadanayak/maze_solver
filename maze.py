@@ -24,9 +24,9 @@ class Maze:
         self._create_cells()
 
     def _create_cells(self):
-        for i in range(self._num_rows):
+        for i in range(self._num_cols):
             row = []
-            for j in range(self._num_cols):
+            for j in range(self._num_rows):
                 cell = Cell(self._win)
                 row.append(cell)
                 self._draw_cell(i,j,cell)
