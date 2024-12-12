@@ -42,17 +42,6 @@ class Tests(unittest.TestCase):
             False
         )
 
-    def test_visited_cells(self):
-        # Test if cells are correctly visited during maze generation
-        num_cols = 5
-        num_rows = 5
-        m1 = Maze(100, 100, num_rows, num_cols, 10, 10)
-
-        visited_cells = sum(1 for row in m1._cells for cell in row if cell.visited)
-        # The recursive backtracking algorithm should visit at least some cells
-        self.assertGreater(visited_cells, 0, "No cells visited during maze generation")
-
-
     def test_random_seed(self):
         """Test that the maze generation produces the same result with the same seed."""
         num_cols = 4
@@ -82,6 +71,14 @@ class Tests(unittest.TestCase):
                 if j < num_rows - 1:
                     self.assertTrue(maze._cells[i][j].has_bottom_wall == maze._cells[i][j + 1].has_top_wall)
 
+    def test_maze_reset_cells_visited(self):
+        num_cols = 10
+        num_rows = 12
+        maze = Maze(0,0,num_rows,num_cols,10,10)
+
+        for row in maze._cells:
+            for cell in row:
+                self.assertEqual(cell.visited, False)
 
 
 if __name__ == "__main__":
