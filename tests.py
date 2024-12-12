@@ -42,5 +42,16 @@ class Tests(unittest.TestCase):
             False
         )
 
+    def test_visited_cells(self):
+        # Test if cells are correctly visited during maze generation
+        num_cols = 5
+        num_rows = 5
+        m1 = Maze(100, 100, num_rows, num_cols, 10, 10)
+
+        visited_cells = sum(1 for row in m1._cells for cell in row if cell.visited)
+        # The recursive backtracking algorithm should visit at least some cells
+        self.assertGreater(visited_cells, 0, "No cells visited during maze generation")
+
+
 if __name__ == "__main__":
     unittest.main()
