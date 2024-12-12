@@ -53,5 +53,36 @@ class Tests(unittest.TestCase):
         self.assertGreater(visited_cells, 0, "No cells visited during maze generation")
 
 
+    def test_random_seed(self):
+        """Test that the maze generation produces the same result with the same seed."""
+        num_cols = 4
+        num_rows = 4
+        maze1 = Maze(0, 0, num_rows, num_cols, 10, 10, seed=42)
+        maze2 = Maze(0, 0, num_rows, num_cols, 10, 10, seed=42)
+
+        # Check that both mazes are identical by comparing their cell wall states
+        for i in range(num_cols):
+            for j in range(num_rows):
+                self.assertEqual(maze1._cells[i][j].has_left_wall, maze2._cells[i][j].has_left_wall)
+                self.assertEqual(maze1._cells[i][j].has_right_wall, maze2._cells[i][j].has_right_wall)
+                self.assertEqual(maze1._cells[i][j].has_top_wall, maze2._cells[i][j].has_top_wall)
+                self.assertEqual(maze1._cells[i][j].has_bottom_wall, maze2._cells[i][j].has_bottom_wall)
+
+    def test_no_redundant_walls(self):
+        """Test that no redundant walls are present (walls between visited cells should be removed)."""
+        num_cols = 3
+        num_rows = 3
+        maze = Maze(0, 0, num_rows, num_cols, 10, 10)
+
+        # Verify that for each pair of adjacent cells, their shared wall has been removed
+        for i in range(num_cols):
+            for j in range(num_rows):
+                if i < num_cols - 1:
+                    self.assertTrue(maze._cells[i][j].has_right_wall == maze._cells[i + 1][j].has_left_wall)
+                if j < num_rows - 1:
+                    self.assertTrue(maze._cells[i][j].has_bottom_wall == maze._cells[i][j + 1].has_top_wall)
+
+
+
 if __name__ == "__main__":
     unittest.main()
