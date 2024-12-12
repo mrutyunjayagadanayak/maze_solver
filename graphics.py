@@ -26,7 +26,7 @@ class Window:
     def draw_line(self, line, fill_color="black"):
         line.draw(self.canvas,fill_color)
 
-class Point():
+class Point:
     def __init__(self,x,y):
         self.x = x
         self.y = y
